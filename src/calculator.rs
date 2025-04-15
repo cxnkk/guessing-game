@@ -1,12 +1,19 @@
 use std::io;
 
 pub fn calculator() {
-    /*println!("Enter your first number");
+    println!("Enter your first number");
     let mut input1: String = String::new();
     io::stdin()
         .read_line(&mut input1)
         .expect("Failed to read the input.");
     let num1: f64 = input1.trim().parse().expect("Please enter a valid number.");
+
+    println!("Enter your operator");
+    let mut operator: String = String::new();
+    io::stdin()
+        .read_line(&mut operator)
+        .expect("Failed to read input.");
+    let operator = operator.trim();
 
     println!("Enter your second number.");
     let mut input2: String = String::new();
@@ -19,17 +26,12 @@ pub fn calculator() {
     let multiplication = num1 * num2;
     let subtraction = num1 - num2;
     let division = num1 / num2;
-    println!("The result of {} and {} is: {}", num1, num2, division);*/
 
-    let mut line = String::new();
-    io::stdin()
-        .read_line(&mut line)
-        .expect("Failed to read line.");
-
-    let inputs: Vec<f64> = line
-        .split_whitespace()
-        .map(|x| x.parse().expect("Not an integer."))
-        .collect();
-
-    println!("{:?}", inputs);
+    match operator {
+        "+" => println!("Your result: {}", addition),
+        "*" => println!("Your result: {}", multiplication),
+        "-" => println!("Your result: {}", subtraction),
+        "/" => println!("Your result: {}", division),
+        _ => println!("Unknown operator"),
+    }
 }
