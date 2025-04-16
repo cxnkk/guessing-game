@@ -1,37 +1,59 @@
+use core::str;
 use std::io;
+
+enum Operator {
+    Add,
+    Mul,
+    Sub,
+    Div,
+}
+
+impl std::str::FromStr for Operator {
+    type Err = String;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "+" => Ok(Operator::Add),
+            "*" => Ok(Operator::Mul),
+            "-" => Ok(Operator::Sub),
+            "/" => Ok(Operator::Div),
+            &_ => Err("Fail.".to_string()),
+        }
+    }
+}
 
 pub fn calculator() {
     println!("Enter your first number");
     let mut input1: String = String::new();
-    io::stdin()
-        .read_line(&mut input1)
-        .expect("Failed to read the input.");
-    let num1: f64 = input1.trim().parse().expect("Please enter a valid number.");
+    io::stdin().read_line(&mut input1).unwrap();
+    let num1: f64 = input1.trim().parse().unwrap();
 
     println!("Enter your operator");
     let mut operator: String = String::new();
-    io::stdin()
-        .read_line(&mut operator)
-        .expect("Failed to read input.");
-    let operator = operator.trim();
+    io::stdin().read_line(&mut operator).unwrap();
+    let operator: Operator = operator.trim().parse().unwrap();
 
     println!("Enter your second number.");
     let mut input2: String = String::new();
-    io::stdin()
-        .read_line(&mut input2)
-        .expect("Failed to read the input.");
-    let num2: f64 = input2.trim().parse().expect("Please enter a valid number");
-
-    let addition = num1 + num2;
-    let multiplication = num1 * num2;
-    let subtraction = num1 - num2;
-    let division = num1 / num2;
+    io::stdin().read_line(&mut input2).unwrap();
+    let num2: f64 = input2.trim().parse().unwrap();
 
     match operator {
-        "+" => println!("Your result: {}", addition),
-        "*" => println!("Your result: {}", multiplication),
-        "-" => println!("Your result: {}", subtraction),
-        "/" => println!("Your result: {}", division),
-        _ => println!("Unknown operator"),
+        Operator::Add => {
+            let addition = num1 + num2;
+            println!("Your result: {}", addition)
+        }
+        Operator::Mul => {
+            let multiplication = num1 * num2;
+            println!("Your result: {}", multiplication)
+        }
+        Operator::Sub => {
+            let subtraction = num1 - num2;
+            println!("Your result: {}", subtraction)
+        }
+        Operator::Div => {
+            let division = num1 / num2;
+            println!("Your result: {}", division)
+        }
     }
 }
